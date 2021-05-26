@@ -1,5 +1,5 @@
 homepage: "www.sovendus.com" ,
 documentation: "https://github.com/Sovendus-GmbH/sovendus_pressproduct_gtm_template" ,
 versions:
-- sha: 26f8b1b10a411ca7031d42c6e6a398ad5e0415f2
+- sha: a9ae97915a5c3588379f104225070c9f887cd69e
   changeNotes: Initial release
