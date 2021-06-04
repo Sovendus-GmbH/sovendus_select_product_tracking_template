@@ -7,6 +7,7 @@ Hinweis Grundvoraussetzung für die erfolgreiche Zusammenarbeit ist die korrekte
 
 2. Externe Product-ID
 Zu jeder Kampagne erstellt Sovendus eine feste Product-ID, die beim Aufruf des Abrechnungspixels fest zu hinterlegen ist. Die Product-ID wird Ihnen von Sovendus nach der Produktanlage separat mitgeteilt. Diese hinterlegen Sie als fixen Wert in die Konfiguration des Tracking Templates.
+
 ![image](https://user-images.githubusercontent.com/81681270/120794639-c80bf780-c538-11eb-9247-e32e4deadc37.png)
 
 
