@@ -7,6 +7,8 @@ Hinweis Grundvoraussetzung für die erfolgreiche Zusammenarbeit ist die korrekte
 
 2. Externe Product-ID
 Zu jeder Kampagne erstellt Sovendus eine feste Product-ID, die beim Aufruf des Abrechnungspixels fest zu hinterlegen ist. Die Product-ID wird Ihnen von Sovendus nach der Produktanlage separat mitgeteilt. Diese hinterlegen Sie als fixen Wert in die Konfiguration des Tracking Templates.
+![image](https://user-images.githubusercontent.com/81681270/120794639-c80bf780-c538-11eb-9247-e32e4deadc37.png)
+
 
 3. Tokenwerte
 Bei jedem Aufruf wird an die URL Ihrer Landingpage standardmäßig der Parameter „sovReqToken“ angehängt. Der Wert ist dynamisch und ändert sich bei jedem Klick auf das Angebot. Der Tokenwert muss von Ihnen aus der URL übernommen, zwischengespeichert und nach Bestellabschluss über den Abrechnungspixel ausgegeben werden. Dieser Wert wird im späteren Verlauf als dynamischer Parameter in die Konfiguration des Tracking Templates hinterlegt.
