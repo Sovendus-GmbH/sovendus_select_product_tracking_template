@@ -17,42 +17,43 @@ Bei jedem Aufruf wird an die URL Ihrer Landingpage standardmäßig der Parameter
 ![image](https://user-images.githubusercontent.com/81681270/119667919-ff8eeb80-be36-11eb-8e77-14ff620725eb.png)
 
 Beispiel für das Abgreifen des Tokens bei Aufruf der Landingpage und Speichern in einem Cookie: 
-let sovReqToken = getSovReqTokenFromUrl();
 
-if (sovReqToken !== null) {
-    saveSovReqTokenToCookie(sovReqToken, 1 * 60);
-}
+    let sovReqToken = getSovReqTokenFromUrl();
 
-sovReqToken = loadSovReqTokenFromCookie();
-
-if (sovReqToken !== null) {
-    triggerPixel("12345678-1234-1234-1234-123456789101", sovReqToken);
-}
-
-function getSovReqTokenFromUrl() {
-    let url = new URL(window.location);
-
-    return url.searchParams.get('sovReqToken');
-}
-
-function saveSovReqTokenToCookie(sovReqToken, seconds) {
-    document.cookie=`sovReqToken=${sovReqToken};secure;samesite=strict;max-age=${seconds}`;
-}
-
-Beispiel für das Abgreifen des Tokens aus dem Cookie: 
-function loadSovReqTokenFromCookie() {
-    let sovReqToken = null;
-
-    let cookie = document.cookie.split("; ").find(function(entry) {
-        return entry.startsWith("sovReqToken=");
-    }) || null;
-
-    if (cookie !== null) {
-        sovReqToken = cookie.split("=")[1];
+    if (sovReqToken !== null) {
+        saveSovReqTokenToCookie(sovReqToken, 1 * 60);
     }
 
-    return sovReqToken;
-}
+    sovReqToken = loadSovReqTokenFromCookie();
+
+    if (sovReqToken !== null) {
+        triggerPixel("12345678-1234-1234-1234-123456789101", sovReqToken);
+    }
+
+    function getSovReqTokenFromUrl() {
+        let url = new URL(window.location);
+        return url.searchParams.get('sovReqToken');
+    }
+
+    function saveSovReqTokenToCookie(sovReqToken, seconds) {
+        document.cookie=`sovReqToken=${sovReqToken};secure;samesite=strict;max-age=${seconds}`;
+    }
+
+Beispiel für das Abgreifen des Tokens aus dem Cookie: 
+
+    function loadSovReqTokenFromCookie() {
+        let sovReqToken = null;
+
+        let cookie = document.cookie.split("; ").find(function(entry) {
+            return entry.startsWith("sovReqToken=");
+        }) || null;
+
+        if (cookie !== null) {
+            sovReqToken = cookie.split("=")[1];
+        }
+
+        return sovReqToken;
+    }
 
 Wenn dieser Wert auf den datalayer des GTM abgelegt wird haben Sie direkt aus der Konfiguration des Templates Zugriff auf die Variable.
 Informationen dazu finden sie hier: https://support.google.com/tagmanager/answer/6164391?hl=en
