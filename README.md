@@ -18,7 +18,7 @@ Bei jedem Aufruf wird an die URL Ihrer Landingpage standardmäßig der Parameter
 
 Beispiel für das Abgreifen des Tokens bei Aufruf der Landingpage und Speichern in einem Cookie: 
 
-    let sovReqToken = getSovReqTokenFromUrl();
+    var sovReqToken = getSovReqTokenFromUrl();
 
     if (sovReqToken !== null) {
         saveSovReqTokenToCookie(sovReqToken, 1 * 60);
@@ -31,7 +31,7 @@ Beispiel für das Abgreifen des Tokens bei Aufruf der Landingpage und Speichern 
     }
 
     function getSovReqTokenFromUrl() {
-        let url = new URL(window.location);
+        var url = new URL(window.location);
         return url.searchParams.get('sovReqToken');
     }
 
@@ -42,9 +42,9 @@ Beispiel für das Abgreifen des Tokens bei Aufruf der Landingpage und Speichern 
 Beispiel für das Abgreifen des Tokens aus dem Cookie: 
 
     function loadSovReqTokenFromCookie() {
-        let sovReqToken = null;
+        var sovReqToken = null;
 
-        let cookie = document.cookie.split("; ").find(function(entry) {
+        var cookie = document.cookie.split("; ").find(function(entry) {
             return entry.startsWith("sovReqToken=");
         }) || null;
 
