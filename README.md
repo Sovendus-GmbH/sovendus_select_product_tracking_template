@@ -1,5 +1,9 @@
 # Sovendus GTM Tracking Template for external Press Products
 
+> [!WARNING]
+> This GTM tag has been replaced by a new version, the old version still works fine, but if you just setting it up, use the new version (here)[https://github.com/Sovendus-GmbH/Sovendus-Google-Tag-Manager-Checkout-Benefits-external-product-tracking]
+
+
 1. Einleitung
    Sovendus platziert Ihr Angebot bei zahlreichen Werbepartnern im Nachgang an eine Bestellung/Transaktion. Damit wir Ihre Bestellungen korrekt erfassen (zu Abrechnungszwecken) und unseren Werbepartnern zuordnen können, muss auf Ihrer Bestellabschluss- bzw. Dankeseite ein Abrechnungspixel integriert werden.
    Hierzu übermittelt Sovendus bei jedem Aufruf einer Landingpage einen generischen Tokenwert, der die Grundlage der Abrechnung von Sovendus darstellt. Der generische Tokenwert wird dynamisch bei jeder Anfrage generiert und ändert sich bei jedem Aufruf. Dieser Tokenwert muss zwischengespeichert und nach dem Bestellabschluss auf Ihrer Landingpage über den Aufruf des Abrechnungspixels auf Ihrer Bestellabschluss- bzw. Dankeseite an Sovendus zurück übermittelt werden.
