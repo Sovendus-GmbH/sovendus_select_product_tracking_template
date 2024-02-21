@@ -1,7 +1,7 @@
 # Sovendus GTM Tracking Template for external Press Products
 
 > [!WARNING]
-> This GTM tag has been replaced by a new version, the old version still works fine, but if you just setting it up, use the new version (here)[https://github.com/Sovendus-GmbH/Sovendus-Google-Tag-Manager-Checkout-Benefits-external-product-tracking]
+> This GTM tag has been replaced by a new version, the old version still works fine, but if you just setting it up, use the new version [here](https://github.com/Sovendus-GmbH/Sovendus-Google-Tag-Manager-Checkout-Benefits-external-product-tracking)
 
 
 1. Einleitung
