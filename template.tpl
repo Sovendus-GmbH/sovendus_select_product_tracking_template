@@ -14,7 +14,7 @@ ___INFO___
   "version": 1,
   "securityGroups": [],
   "categories": ["CONVERSIONS", "MARKETING", "AFFILIATE_MARKETING","LEAD_GENERATION"],
-  "displayName": "Sovendus Select Product Tracking",
+  "displayName": "Legacy Sovendus Select Product Tracking",
   "brand": {
     "id": "brand_dummy",
     "displayName": "",
