@@ -1,66 +1,22 @@
-# Sovendus GTM Tracking Template for external Press Products
+# Sovendus Checkout Products Postback for Google Tag Manager
 
-> [!WARNING]
-> This GTM tag has been replaced by a new version, the old version still works fine, but if you just setting it up, use the new version [here](https://github.com/Sovendus-GmbH/Sovendus-Google-Tag-Manager-Checkout-Benefits-external-product-tracking)
+To setup Sovendus Checkout Products Postback, you need to create a tag in your GTM as described below.
 
+## Add and setup the tag
 
-1. Einleitung
-   Sovendus platziert Ihr Angebot bei zahlreichen Werbepartnern im Nachgang an eine Bestellung/Transaktion. Damit wir Ihre Bestellungen korrekt erfassen (zu Abrechnungszwecken) und unseren Werbepartnern zuordnen können, muss auf Ihrer Bestellabschluss- bzw. Dankeseite ein Abrechnungspixel integriert werden.
-   Hierzu übermittelt Sovendus bei jedem Aufruf einer Landingpage einen generischen Tokenwert, der die Grundlage der Abrechnung von Sovendus darstellt. Der generische Tokenwert wird dynamisch bei jeder Anfrage generiert und ändert sich bei jedem Aufruf. Dieser Tokenwert muss zwischengespeichert und nach dem Bestellabschluss auf Ihrer Landingpage über den Aufruf des Abrechnungspixels auf Ihrer Bestellabschluss- bzw. Dankeseite an Sovendus zurück übermittelt werden.
-   Hinweis Grundvoraussetzung für die erfolgreiche Zusammenarbeit ist die korrekte Rückspielung des Tokenwerts. Wird der Tokenwert nicht oder nicht korrekt an Sovendus übermittelt, funktioniert der Sovendus-Algorithmus nicht und Ihr Angebot wird nach kurzer Zeit nicht mehr angezeigt.
+1. Go to tags and create a new tag
+2. Click on the first entry: "Discover more tag types in the Community Template Gallery"
+3. Search for: "Sovendus Checkout Products Postback" and add it
+4. Add the product id(s) you have received and the landing page paths for those products. If the url for the product page looks like this: my-shop.com/products/super-nice-product?url-parameter=parameter-value the landing page path to enter should be this: /products/super-nice-product
 
-2. Externe Product-ID
-   Zu jeder Kampagne erstellt Sovendus eine feste Product-ID, die beim Aufruf des Abrechnungspixels fest zu hinterlegen ist. Die Product-ID wird Ihnen von Sovendus nach der Produktanlage separat mitgeteilt. Diese hinterlegen Sie als fixen Wert in die Konfiguration des Tracking Templates.
+   ![Tag configuration](https://raw.githubusercontent.com/Sovendus-GmbH/Sovendus-Google-Tag-Manager-Checkout-Products-Postback-Order-Logging/main/screenshots/url-config.png)
 
-![image](https://user-images.githubusercontent.com/81681270/120794639-c80bf780-c538-11eb-9247-e32e4deadc37.png)
+5. Add a trigger which fires when the sovendus request token is in the url
 
-3. Tokenwerte
-   Bei jedem Aufruf wird an die URL Ihrer Landingpage standardmäßig der Parameter „sovReqToken“ angehängt. Der Wert ist dynamisch und ändert sich bei jedem Klick auf das Angebot. Der Tokenwert muss von Ihnen aus der URL übernommen, zwischengespeichert und nach Bestellabschluss über den Abrechnungspixel ausgegeben werden. Dieser Wert wird im späteren Verlauf als dynamischer Parameter in die Konfiguration des Tracking Templates hinterlegt.
+   ![Tag Trigger Configuration](https://raw.githubusercontent.com/Sovendus-GmbH/Sovendus-Google-Tag-Manager-Checkout-Products-Postback-Order-Logging/main/screenshots/trigger-config.png)
 
-![image](https://user-images.githubusercontent.com/81681270/119667919-ff8eeb80-be36-11eb-8e77-14ff620725eb.png)
+6. Add a trigger which fires only on the order success page
 
-Beispiel für das Abgreifen des Tokens bei Aufruf der Landingpage und Speichern in einem Cookie:
+7. The configuration should look similar to this
 
-```html
-<script>
-  var sovReqToken = getSovReqTokenFromUrl();
-  if (sovReqToken !== null) {
-    saveSovReqTokenToCookie(sovReqToken, 2678400); // 31 days
-  }
-  function getSovReqTokenFromUrl() {
-    var url = new URL(window.location);
-    return url.searchParams.get("sovReqToken");
-  }
-  function saveSovReqTokenToCookie(sovReqToken, seconds) {
-    document.cookie =
-      "sovReqToken=" +
-      sovReqToken +
-      ";secure;samesite=strict;max-age=" +
-      seconds;
-  }
-</script>
-```
-
-Beispiel für das Abgreifen des Tokens aus dem Cookie:
-
-```javascript
-function loadSovReqTokenFromCookie() {
-  var sovReqToken = null;
-  var cookie =
-    document.cookie.split("; ").find(function (entry) {
-      return entry.startsWith("sovReqToken=");
-    }) || null;
-  if (cookie !== null) {
-    sovReqToken = cookie.split("=")[1];
-  }
-  return sovReqToken;
-}
-```
-
-Wenn dieser Wert auf den datalayer des GTM abgelegt wird haben Sie direkt aus der Konfiguration des Templates Zugriff auf die Variable.
-Informationen dazu finden sie hier: https://support.google.com/tagmanager/answer/6164391?hl=en
-
-4. Feuern des Pixels
-   Nachdem Product ID und Token in die Konfiguration des Pixels eingetragen wurde geht es nun darum das Pixel an der richtigen Stelle zu feuern.
-   Verwenden Sie dazu einen passenden Trigger bzw erstellen diesen und fügen diesen dem Tag hinzu.
-   Mehr Informationen zu Triggern finden Sie hier: https://support.google.com/tagmanager/topic/7679384?hl=en&ref_topic=3441647
+   ![Tag Trigger Configuration](https://raw.githubusercontent.com/Sovendus-GmbH/Sovendus-Google-Tag-Manager-Checkout-Products-Postback-Order-Logging/main/screenshots/done-config.png)
