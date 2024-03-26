@@ -9,14 +9,14 @@ To setup Sovendus Checkout Products Postback, you need to create a tag in your G
 3. Search for: "Sovendus Checkout Products Postback" and add it
 4. Add the product id(s) you have received and the landing page paths for those products. If the url for the product page looks like this: my-shop.com/products/super-nice-product?url-parameter=parameter-value the landing page path to enter should be this: /products/super-nice-product
 
-   ![Tag configuration](https://raw.githubusercontent.com/Sovendus-GmbH/Sovendus-Google-Tag-Manager-Checkout-Products-Postback-Order-Logging/main/screenshots/url-config.png)
+   ![Tag configuration](https://raw.githubusercontent.com/Sovendus-GmbH/sovendus_select_product_tracking_template/main/screenshots/url-config.png)
 
 5. Add a trigger which fires when the sovendus request token is in the url
 
-   ![Tag Trigger Configuration](https://raw.githubusercontent.com/Sovendus-GmbH/Sovendus-Google-Tag-Manager-Checkout-Products-Postback-Order-Logging/main/screenshots/trigger-config.png)
+   ![Tag Trigger Configuration](https://raw.githubusercontent.com/Sovendus-GmbH/sovendus_select_product_tracking_template/main/screenshots/trigger-config.png)
 
 6. Add a trigger which fires only on the order success page
 
 7. The configuration should look similar to this
 
-   ![Tag Trigger Configuration](https://raw.githubusercontent.com/Sovendus-GmbH/Sovendus-Google-Tag-Manager-Checkout-Products-Postback-Order-Logging/main/screenshots/done-config.png)
+   ![Tag Trigger Configuration](https://raw.githubusercontent.com/Sovendus-GmbH/sovendus_select_product_tracking_template/main/screenshots/done-config.png)
