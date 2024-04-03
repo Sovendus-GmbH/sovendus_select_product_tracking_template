@@ -24,7 +24,7 @@ if (checkPermissions()) {
   const urlObject = getUrlObject();
   const sovReqToken = urlObject.searchParams.sovReqToken;
   const pathname = urlObject.pathname;
-  if (sovReqToken !== null) {
+  if (sovReqToken) {
     setCookieFromUrlParameter(sovReqToken, pathname);
   } else {
     log("Sovendus Checkout Products Postback - no sovReqToken in url");
