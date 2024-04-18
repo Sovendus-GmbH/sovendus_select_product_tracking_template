@@ -1,5 +1,5 @@
 const log = require("logToConsole");
-log("Sovendus external products order logging started");
+log("Sovendus Checkout Products Postback started");
 const sendPixel = require("sendPixel");
 const queryPermission = require("queryPermission");
 const getCookieValues = require("getCookieValues");
@@ -24,7 +24,25 @@ if (checkPermissions()) {
   const urlObject = getUrlObject();
   const sovReqToken = urlObject.searchParams.sovReqToken;
   const pathname = urlObject.pathname;
-  if (sovReqToken) {
+  if (
+    sovReqToken &&
+    // TODO remove
+    !sovReqToken &&
+    sovReqToken !== undefined &&
+    sovReqToken !== "undefined"
+  ) {
+    // TODO remove
+    log(
+      "Sovendus Checkout Products Postback - sovReqToken details: ",
+      "sovReqToken: ",
+      sovReqToken,
+      "sovReqToken === undefined: ",
+      sovReqToken === undefined,
+      'sovReqToken:  === "undefined"',
+      sovReqToken === "undefined",
+      "!!sovReqToken: ",
+      !!sovReqToken
+    );
     setCookieFromUrlParameter(sovReqToken, pathname);
   } else {
     log("Sovendus Checkout Products Postback - no sovReqToken in url");
@@ -48,6 +66,7 @@ if (checkPermissions()) {
 }
 
 function logSovendusOrder(sovReqTokenCookie, sovReqPathCookie) {
+  log("Sovendus Checkout Products Postback - order logging started");
   const sovReqToken = sovReqTokenCookie[0];
   const sovReqPath = sovReqPathCookie[0];
   log("sovReqToken:", sovReqToken, "sovReqPath:", sovReqPath);
@@ -73,9 +92,12 @@ function logSovendusOrder(sovReqTokenCookie, sovReqPathCookie) {
 
         log("Pixel URL: " + pixelUrl);
         sendPixel(pixelUrl, data.gtmOnSuccess, data.gtmOnFailure);
+        log("Sovendus Checkout Products Postback - order logging successful");
+        return;
       }
     }
   }
+  log("Sovendus Checkout Products Postback - no order to log");
 }
 
 function getUrlObject() {
@@ -84,11 +106,13 @@ function getUrlObject() {
 }
 
 function setCookieFromUrlParameter(sovReqToken, pathname) {
+  log("Sovendus Checkout Products Postback - start to set cookie");
   setCookie("sovReqToken", sovReqToken, cookieAddOptions);
   log("Sovendus Checkout Products Postback - sovReqToken =", sovReqToken);
   const sovReqPath = pathname;
   setCookie("sovReqPath", sovReqPath, cookieAddOptions, false);
   log("Sovendus Checkout Products Postback - sovReqPath =", sovReqPath);
+  log("Sovendus Checkout Products Postback - setting cookie done");
 }
 
 function removeCookie() {
@@ -113,4 +137,4 @@ function checkPermissions() {
   );
 }
 
-log("Sovendus external products order logging done");
+log("Sovendus Checkout Products Postback - done");
