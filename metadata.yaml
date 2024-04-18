@@ -2,9 +2,11 @@ homepage: "www.sovendus.com" ,
 documentation: "https://github.com/Sovendus-GmbH/sovendus_select_product_tracking_template" ,
 versions:
   # Latest version
+  - sha: 86afa6bb54a8a21111c24f18a91a59821e5cecab
+    changeNotes: add additional logs and token undefined checks
+  # Older versions
   - sha: eaa85a5f7f178d405648f4fd956cad702854b492
     changeNotes: fix sovReqToke undefined in some cases
-  # Older versions
   - sha: 803740df0bc9777a99b4465ff49cd5ac1ccacefc
     changeNotes: add new improved tag version
   - sha: 15c6fa1b1f0e19796fe2afe01c5d640de39fcb96
