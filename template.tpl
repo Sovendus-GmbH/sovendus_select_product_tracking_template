@@ -78,23 +78,10 @@ if (checkPermissions()) {
   const pathname = urlObject.pathname;
   if (
     sovReqToken &&
-    // TODO remove
-    !sovReqToken &&
+    // just in case
     sovReqToken !== undefined &&
     sovReqToken !== "undefined"
   ) {
-    // TODO remove
-    log(
-      "Sovendus Checkout Products Postback - sovReqToken details: ",
-      "sovReqToken: ",
-      sovReqToken,
-      "sovReqToken === undefined: ",
-      sovReqToken === undefined,
-      'sovReqToken:  === "undefined"',
-      sovReqToken === "undefined",
-      "!!sovReqToken: ",
-      !!sovReqToken
-    );
     setCookieFromUrlParameter(sovReqToken, pathname);
   } else {
     log("Sovendus Checkout Products Postback - no sovReqToken in url");
