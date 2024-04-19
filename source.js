@@ -24,6 +24,17 @@ if (checkPermissions()) {
   const urlObject = getUrlObject();
   const sovReqToken = urlObject.searchParams.sovReqToken;
   const pathname = urlObject.pathname;
+  log(
+    "Sovendus Checkout Products Postback - sovReqToken details: ",
+    "sovReqToken: ",
+    sovReqToken,
+    "sovReqToken === undefined: ",
+    sovReqToken === undefined,
+    'sovReqToken:  === "undefined"',
+    sovReqToken === "undefined",
+    "!!sovReqToken: ",
+    !!sovReqToken
+  );
   if (
     sovReqToken &&
     // TODO remove
@@ -31,9 +42,8 @@ if (checkPermissions()) {
     sovReqToken !== undefined &&
     sovReqToken !== "undefined"
   ) {
-    // TODO remove
     log(
-      "Sovendus Checkout Products Postback - sovReqToken details: ",
+      "Sovendus Checkout Products Postback - sovReqToken details22: ",
       "sovReqToken: ",
       sovReqToken,
       "sovReqToken === undefined: ",
@@ -43,6 +53,7 @@ if (checkPermissions()) {
       "!!sovReqToken: ",
       !!sovReqToken
     );
+    // TODO remove
     setCookieFromUrlParameter(sovReqToken, pathname);
   } else {
     log("Sovendus Checkout Products Postback - no sovReqToken in url");
