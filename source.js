@@ -28,6 +28,8 @@ if (checkPermissions()) {
     "Sovendus Checkout Products Postback - sovReqToken details: ",
     "sovReqToken: ",
     sovReqToken,
+    "!sovReqToken: ",
+    !sovReqToken,
     "sovReqToken === undefined: ",
     sovReqToken === undefined,
     'sovReqToken:  === "undefined"',
@@ -38,7 +40,6 @@ if (checkPermissions()) {
   if (
     sovReqToken &&
     // TODO remove
-    !sovReqToken &&
     sovReqToken !== undefined &&
     sovReqToken !== "undefined"
   ) {
@@ -46,6 +47,8 @@ if (checkPermissions()) {
       "Sovendus Checkout Products Postback - sovReqToken details22: ",
       "sovReqToken: ",
       sovReqToken,
+      "!sovReqToken: ",
+      !sovReqToken,
       "sovReqToken === undefined: ",
       sovReqToken === undefined,
       'sovReqToken:  === "undefined"',
