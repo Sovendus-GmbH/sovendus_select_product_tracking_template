@@ -1,4 +1,4 @@
-# Sovendus Checkout Products Postback for Google Tag Manager
+# Sovendus Checkout Products for Google Tag Manager
 
 To setup Sovendus Checkout Products Postback, you need to create a tag in your GTM as described below.
 
