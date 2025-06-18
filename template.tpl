@@ -1,10 +1,17 @@
-﻿___INFO___
+﻿___TERMS_OF_SERVICE___
+
+By creating or modifying this file you agree to Google Tag Manager's Community
+Template Gallery Developer Terms of Service available at
+https://developers.google.com/tag-manager/gallery-tos (or such other URL as
+Google may provide), as modified from time to time.
+
+
+___INFO___
 
 {
   "type": "TAG",
-  "id": "cvt_temp_public_id",
+  "id": "cvt_55N3N",
   "version": 1,
-  "securityGroups": [],
   "categories": [
     "CONVERSIONS"
   ],
@@ -17,35 +24,14 @@
   "description": "This template is used to log a successful purchases that was referred by Sovendus Checkout Products",
   "containerContexts": [
     "WEB"
-  ]
+  ],
+  "securityGroups": []
 }
 
 
 ___TEMPLATE_PARAMETERS___
 
-[
-  {
-    "type": "SIMPLE_TABLE",
-    "name": "productIdsByPath",
-    "displayName": "Enter the product IDs with the landing page path",
-    "simpleTableColumns": [
-      {
-        "defaultValue": "",
-        "displayName": "Product ID",
-        "name": "productId",
-        "type": "TEXT"
-      },
-      {
-        "defaultValue": "",
-        "displayName": "Landing page path",
-        "name": "path",
-        "type": "TEXT"
-      }
-    ],
-    "notSetText": "Please enter the product id you have received and the path name for the landing page",
-    "help": "Please enter the product id you have received and the path name for the landing page. Example pathname: /products/super-nice-t-shirt"
-  }
-]
+[]
 
 
 ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
@@ -60,7 +46,6 @@ const getUrl = require("getUrl");
 const parseUrl = require("parseUrl");
 
 const sovReqTokenCookieName = "sovReqToken";
-const sovReqPathCookieName = "sovReqPath";
 const cookieRemoveOptions = {
   path: "/",
   "max-age": 0,
@@ -75,68 +60,49 @@ const cookieAddOptions = {
 if (checkPermissions()) {
   const urlObject = getUrlObject();
   const sovReqToken = urlObject.searchParams.sovReqToken;
-  const pathname = urlObject.pathname;
   if (
     sovReqToken &&
     // just in case
     sovReqToken !== undefined &&
     sovReqToken !== "undefined"
   ) {
-    setCookieFromUrlParameter(sovReqToken, pathname);
+    setCookieFromUrlParameter(sovReqToken);
   } else {
     log("Sovendus Checkout Products Postback - no sovReqToken in url");
 
     const sovReqTokenCookie = getCookieValues(sovReqTokenCookieName);
-    const sovReqPathCookie = getCookieValues(sovReqPathCookieName);
-    if (sovReqTokenCookie && sovReqPathCookie) {
-      logSovendusOrder(sovReqTokenCookie, sovReqPathCookie);
+    if (sovReqTokenCookie) {
+      const sovReqToken = sovReqTokenCookie[0];
+      if (sovReqToken) {
+        logSovendusOrder(sovReqToken);
+      }
     } else {
-      log(
-        "sovReqCookie not found",
-        "sovReqTokenCookie:",
-        sovReqTokenCookie,
-        "sovReqPathCookie:",
-        sovReqPathCookie
-      );
+      log("sovReqCookie not found", "sovReqTokenCookie:", sovReqTokenCookie);
     }
   }
 } else {
   log("No permission to get/set sovReqCookie or read url path");
 }
 
-function logSovendusOrder(sovReqTokenCookie, sovReqPathCookie) {
+function logSovendusOrder(sovReqToken) {
   log("Sovendus Checkout Products Postback - order logging started");
-  const sovReqToken = sovReqTokenCookie[0];
-  const sovReqPath = sovReqPathCookie[0];
-  log("sovReqToken:", sovReqToken, "sovReqPath:", sovReqPath);
-  const productIdsByUrl = data.productIdsByPath;
-  log("productIdsByPath: ", productIdsByUrl);
-  if (productIdsByUrl) {
-    const thisProductIdArr = productIdsByUrl.filter(
-      (productIdObj) => productIdObj.path === sovReqPath
+
+  log("sovReqToken: ", sovReqToken);
+
+  const pixelUrl =
+    "https://press-order-api.sovendus.com/ext/image?sovReqToken=" + sovReqToken;
+
+  if (queryPermission("send_pixel", pixelUrl)) {
+    removeCookie();
+    log("Pixel URL: " + pixelUrl);
+    sendPixel(pixelUrl, data.gtmOnSuccess, data.gtmOnFailure);
+    log("Sovendus Checkout Products Postback - order logging successful");
+    return;
+  } else {
+    log(
+      "Sovendus Checkout Products Postback - order logging failed due to missing permission"
     );
-    const thisProductIdObj =
-      thisProductIdArr.length === 1 ? thisProductIdArr[0] : undefined;
-    log("thisProductIdObj: ", thisProductIdObj);
-    if (thisProductIdObj) {
-      const product_id = thisProductIdObj.productId;
-      const pixelUrl =
-        "https://press-order-api.sovendus.com/ext/" +
-        product_id +
-        "/image?sovReqToken=" +
-        sovReqToken;
-
-      if (queryPermission("send_pixel", pixelUrl)) {
-        removeCookie();
-
-        log("Pixel URL: " + pixelUrl);
-        sendPixel(pixelUrl, data.gtmOnSuccess, data.gtmOnFailure);
-        log("Sovendus Checkout Products Postback - order logging successful");
-        return;
-      }
-    }
   }
-  log("Sovendus Checkout Products Postback - no order to log");
 }
 
 function getUrlObject() {
@@ -144,33 +110,26 @@ function getUrlObject() {
   return urlObject;
 }
 
-function setCookieFromUrlParameter(sovReqToken, pathname) {
+function setCookieFromUrlParameter(sovReqToken) {
   log("Sovendus Checkout Products Postback - start to set cookie");
   setCookie("sovReqToken", sovReqToken, cookieAddOptions);
   log("Sovendus Checkout Products Postback - sovReqToken =", sovReqToken);
-  const sovReqPath = pathname;
-  setCookie("sovReqPath", sovReqPath, cookieAddOptions, false);
-  log("Sovendus Checkout Products Postback - sovReqPath =", sovReqPath);
   log("Sovendus Checkout Products Postback - setting cookie done");
 }
 
 function removeCookie() {
   setCookie(sovReqTokenCookieName, "", cookieRemoveOptions);
-  setCookie(sovReqPathCookieName, "", cookieRemoveOptions);
 }
 
 function checkPermissions() {
   return (
     queryPermission("get_cookies", sovReqTokenCookieName) &&
-    queryPermission("get_cookies", sovReqPathCookieName) &&
     queryPermission(
       "set_cookies",
       sovReqTokenCookieName,
       cookieRemoveOptions
     ) &&
-    queryPermission("set_cookies", sovReqPathCookieName, cookieRemoveOptions) &&
     queryPermission("set_cookies", sovReqTokenCookieName, cookieAddOptions) &&
-    queryPermission("set_cookies", sovReqPathCookieName, cookieAddOptions) &&
     queryPermission("get_url", "query", sovReqTokenCookieName) &&
     queryPermission("get_url", "path")
   );
@@ -257,10 +216,6 @@ ___WEB_PERMISSIONS___
             "listItem": [
               {
                 "type": 1,
-                "string": "sovReqPath"
-              },
-              {
-                "type": 1,
                 "string": "sovReqToken"
               }
             ]
@@ -285,53 +240,6 @@ ___WEB_PERMISSIONS___
           "value": {
             "type": 2,
             "listItem": [
-              {
-                "type": 3,
-                "mapKey": [
-                  {
-                    "type": 1,
-                    "string": "name"
-                  },
-                  {
-                    "type": 1,
-                    "string": "domain"
-                  },
-                  {
-                    "type": 1,
-                    "string": "path"
-                  },
-                  {
-                    "type": 1,
-                    "string": "secure"
-                  },
-                  {
-                    "type": 1,
-                    "string": "session"
-                  }
-                ],
-                "mapValue": [
-                  {
-                    "type": 1,
-                    "string": "sovReqPath"
-                  },
-                  {
-                    "type": 1,
-                    "string": "*"
-                  },
-                  {
-                    "type": 1,
-                    "string": "/"
-                  },
-                  {
-                    "type": 1,
-                    "string": "secure"
-                  },
-                  {
-                    "type": 1,
-                    "string": "any"
-                  }
-                ]
-              },
               {
                 "type": 3,
                 "mapKey": [
@@ -411,9 +319,6 @@ ___WEB_PERMISSIONS___
           }
         }
       ]
-    },
-    "clientAnnotations": {
-      "isEditedByUser": true
     },
     "isRequired": true
   }
