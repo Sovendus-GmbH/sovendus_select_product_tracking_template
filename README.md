@@ -2,7 +2,7 @@
 
 To setup Sovendus Checkout Products Postback, you need to create a tag in your GTM as described below.
 
-## Add and setup the tag
+## 🛠️ Add and setup the tag
 
 1. Go to tags and create a new tag
 2. Click on the first entry: "Discover more tag types in the Community Template Gallery"
