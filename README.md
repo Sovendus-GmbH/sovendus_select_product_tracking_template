@@ -16,3 +16,7 @@ To setup Sovendus Checkout Products Postback, you need to create a tag in your G
 6. The configuration should look similar to this
 
    ![Tag Trigger Configuration](https://raw.githubusercontent.com/Sovendus-GmbH/sovendus_select_product_tracking_template/main/screenshots/done-config.png)
+   
+> [!WARNING]
+> ** Optional **
+> In addition to the above, you may also wish to store the sovReqToken alongside the order’s information - such as by sending the token to your backend - to persist it for a longer time. This way, you will be able to locate the token to be sent to Sovendus for cancellation purposes, if needed.
